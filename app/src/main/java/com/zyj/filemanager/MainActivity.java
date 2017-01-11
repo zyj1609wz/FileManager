@@ -1,0 +1,139 @@
+package com.zyj.filemanager;
+
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Environment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.method.ScrollingMovementMethod;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.TextView;
+import com.zyj.filemanager.adapter.MyAdapter;
+import com.zyj.filemanager.bean.FileBean;
+import com.zyj.filemanager.bean.FilePath;
+import com.zyj.filemanager.bean.FileType;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class MainActivity extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private MyAdapter myAdapter;
+    private List<FileBean> beanList = new ArrayList<>();
+    private TextView filePathState_tv ;
+    private List<FilePath> filePathStateList = new ArrayList<>() ;
+    private StringBuilder stringBuilder = new StringBuilder("");
+    private File rootFile ;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        filePathState_tv = (TextView) findViewById( R.id.filePathState_tv );
+        filePathState_tv.setHorizontallyScrolling( true );
+        filePathState_tv.setMovementMethod(new ScrollingMovementMethod());
+
+        String rootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
+        myAdapter = new MyAdapter(this, beanList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this));
+        recyclerView.setAdapter(myAdapter);
+
+        myAdapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                FileBean file = beanList.get(position);
+                if ( file.getFileType() == FileType.directory) {
+                    getFile(file.getPath());
+
+                    FilePath filePath = new FilePath() ;
+                    filePath.setNameState(  file.getName() + " > "  );
+                    filePath.setPath( file.getPath() );
+                    filePathStateList.add( filePath ) ;
+
+                    filePathState_tv.setText( getFilePathState() );
+                }
+            }
+        });
+
+        FilePath filePath = new FilePath() ;
+        filePath.setNameState(  "" );
+        filePath.setPath( rootPath );
+        filePathStateList.add( filePath ) ;
+
+        getFile(rootPath);
+
+    }
+
+    public void getFile(String path ) {
+        rootFile = new File(path + "/" )  ;
+        new MyTask(rootFile).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "");
+    }
+
+    class MyTask extends AsyncTask {
+        File file;
+
+        MyTask(File file) {
+            this.file = file;
+        }
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            List<FileBean> fileBeenList = new ArrayList<>();
+            File[] files = file.listFiles();
+            for (File f : files) {
+                if (f.isHidden()) continue;
+
+                FileBean fileBean = new FileBean();
+                fileBean.setName(f.getName());
+                fileBean.setPath(f.getAbsolutePath());
+                fileBean.setFileType( FileUtil.getFileType( f ));
+                fileBean.setChildCount( FileUtil.getFileChildCount( f ));
+                fileBean.setSize( f.length() );
+
+                fileBeenList.add(fileBean);
+            }
+            beanList = fileBeenList;
+            return fileBeenList;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            myAdapter.refresh(beanList);
+        }
+    }
+
+    private String getFilePathState(){
+        stringBuilder.delete( 0 , stringBuilder.length() ) ;
+        for ( FilePath fp : filePathStateList ){
+            stringBuilder.append( fp.getNameState() ) ;
+        }
+        return stringBuilder.toString() ;
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getRepeatCount() == 0) {
+            if ( filePathStateList.size() == 1 ){
+                finish();
+            }else {
+                filePathStateList.remove( filePathStateList.size() - 1 ) ;
+                filePathState_tv.setText( getFilePathState() );
+                getFile( filePathStateList.get( filePathStateList.size() - 1 ).getPath());
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+}
