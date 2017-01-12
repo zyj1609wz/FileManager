@@ -16,7 +16,7 @@
         android:id="@+id/back_rel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#333333"
+        android:background="#66333333"
         >
 
         <ImageView
