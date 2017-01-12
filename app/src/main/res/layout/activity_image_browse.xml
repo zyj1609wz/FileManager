@@ -12,5 +12,30 @@
         android:layout_height="match_parent">
     </uk.co.senab.photoview.PhotoView>
 
+    <RelativeLayout
+        android:id="@+id/back_rel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#333333"
+        >
+
+        <ImageView
+            android:id="@+id/back_image"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/selector"
+            />
+
+        <TextView
+            android:layout_toRightOf="@id/back_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="返回"
+            android:layout_centerVertical="true"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            />
+
+    </RelativeLayout>
 
 </RelativeLayout>
