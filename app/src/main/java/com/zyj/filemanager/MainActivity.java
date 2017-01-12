@@ -70,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
                     Intent image_intent =  new Intent( MainActivity.this , ImageBrowseActivity.class) ;
                     image_intent.putExtra( ImageBrowseActivity.FILE_PATH_KEY , file.getPath() ) ;
                     startActivity( image_intent );
+                }else if ( fileType == FileType.txt ){
+                    FileUtil.openWordFileIntent( MainActivity.this , file.getPath() );
+                }else {
+                    FileUtil.openWordFileIntent( MainActivity.this , file.getPath() );
                 }
             }
         });

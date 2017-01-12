@@ -110,4 +110,39 @@ public class FileUtil {
         context.startActivity(intent);
     }
 
+    /**
+     * 打开word
+     * @param param
+     * @return
+     */
+    public static void openWordFileIntent( Context context , String param ) {
+        Intent intent = new Intent("android.intent.action.VIEW");
+        intent.addCategory("android.intent.category.DEFAULT");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Uri uri = Uri.fromFile(new File(param ));
+        intent.setDataAndType(uri, "application/msword");
+        context.startActivity( intent );
+    }
+
+    /**
+     * android获取一个用于打开文本文件的intent
+     * @param context
+     * @param param
+     * @param paramBoolean
+     */
+    public static void openTextFileIntent( Context context , String param, boolean paramBoolean){
+        Intent intent = new Intent("android.intent.action.VIEW");
+        intent.addCategory("android.intent.category.DEFAULT");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (paramBoolean) {
+            Uri uri1 = Uri.parse(param );
+            intent.setDataAndType(uri1, "text/plain");
+        }else {
+            Uri uri2 = Uri.fromFile(new File(param ));
+            intent.setDataAndType(uri2, "text/plain");
+        }
+
+        context.startActivity( intent );
+    }
+
 }

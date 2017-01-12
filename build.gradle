@@ -15,7 +15,11 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+
+        //这个是photo view 需要的配置
+        maven { url 'https://jitpack.io' }
     }
+
 }
 
 task clean(type: Delete) {
