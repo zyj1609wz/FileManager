@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.method.ScrollingMovementMethod;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.zyj.filemanager.adapter.MyAdapter;
 import com.zyj.filemanager.bean.FileBean;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private List<FilePath> filePathStateList = new ArrayList<>() ;
     private StringBuilder stringBuilder = new StringBuilder("");
     private File rootFile ;
+    private LinearLayout empty_rel ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this));
         recyclerView.setAdapter(myAdapter);
+
+        empty_rel = (LinearLayout) findViewById( R.id.empty_rel );
 
         myAdapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
             @Override
@@ -127,6 +131,11 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Object o) {
+            if ( beanList.size() > 0  ){
+                empty_rel.setVisibility( View.GONE );
+            }else {
+                empty_rel.setVisibility( View.VISIBLE );
+            }
             myAdapter.refresh(beanList);
         }
     }

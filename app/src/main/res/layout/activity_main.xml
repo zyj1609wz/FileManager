@@ -53,15 +53,50 @@
 
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <RelativeLayout
         android:layout_below="@id/fileState_rel"
-        android:paddingRight="10dp"
-        android:paddingLeft="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#ffffff"
-        >
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            >
+        </android.support.v7.widget.RecyclerView>
+
+        <LinearLayout
+            android:id="@+id/empty_rel"
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/empty_view_image"
+                android:layout_gravity="center"
+                />
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="没有文件"
+                android:layout_gravity="center"
+                android:textSize="14sp"
+                android:textColor="#999999"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
 
 </RelativeLayout>
