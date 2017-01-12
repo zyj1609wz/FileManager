@@ -112,8 +112,14 @@ public class MainActivity extends AppCompatActivity {
                 fileBean.setFileType( FileUtil.getFileType( f ));
                 fileBean.setChildCount( FileUtil.getFileChildCount( f ));
                 fileBean.setSize( f.length() );
+                fileBean.setHolderType( 0 );
 
                 fileBeenList.add(fileBean);
+
+                FileBean lineBean = new FileBean();
+                lineBean.setHolderType( 1 );
+                fileBeenList.add( lineBean );
+
             }
             beanList = fileBeenList;
             return fileBeenList;
