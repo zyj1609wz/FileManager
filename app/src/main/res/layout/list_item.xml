@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.zyj.app.file.MainActivity"
     android:paddingBottom="5dp"
     android:paddingTop="5dp"
     android:background="#ffffff"
@@ -17,12 +16,22 @@
         >
     </ImageView>
 
+    <ImageView
+        android:id="@+id/dir_enter_image"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:src="@mipmap/file_enter_icon"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        />
+
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_toLeftOf="@id/dir_enter_image"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/fileIcon"
         android:layout_centerVertical="true"
-        android:gravity="center"
+        android:gravity="left"
         android:paddingLeft="10dp"
         >
 
@@ -55,11 +64,9 @@
             android:textSize="14sp"
             android:textColor="#999999"
             android:gravity="center"
-           android:visibility="gone"
+            android:visibility="gone"
             />
 
     </RelativeLayout>
-
-
 
 </RelativeLayout>

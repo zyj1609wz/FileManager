@@ -64,11 +64,15 @@ public class MyAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder> {
             myViewHolder.fileChildCount.setText( fileBean.getChildCount() + "项");
 
             myViewHolder.fileSize.setVisibility( View.GONE );
+            myViewHolder.dir_enter_image.setVisibility( View.VISIBLE );
+
         }else {
             myViewHolder.fileChildCount.setVisibility( View.GONE);
 
             myViewHolder.fileSize.setVisibility( View.VISIBLE );
             myViewHolder.fileSize.setText( FileUtil.sizeToChange( fileBean.getSize() ));
+
+            myViewHolder.dir_enter_image.setVisibility( View.GONE );
         }
 
         //设置图标
@@ -115,6 +119,7 @@ public class MyAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView fileName ;
         TextView fileChildCount ;
         TextView fileSize ;
+        ImageView dir_enter_image ;
 
         public MyViewHolder(View view) {
             super(view);
@@ -122,6 +127,7 @@ public class MyAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder> {
             fileName = (TextView) view.findViewById(R.id.fileName );
             fileChildCount = (TextView) view.findViewById(R.id.fileChildCount );
             fileSize = (TextView) view.findViewById(R.id.fileSize );
+            dir_enter_image = (ImageView) view.findViewById(R.id.dir_enter_image );
         }
     }
 
