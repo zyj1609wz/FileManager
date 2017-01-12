@@ -1,5 +1,6 @@
 package com.zyj.filemanager;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -52,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 FileBean file = beanList.get(position);
-                if ( file.getFileType() == FileType.directory) {
+                FileType fileType = file.getFileType() ;
+                if ( fileType == FileType.directory) {
                     getFile(file.getPath());
 
                     FilePath filePath = new FilePath() ;
@@ -61,6 +63,13 @@ public class MainActivity extends AppCompatActivity {
                     filePathStateList.add( filePath ) ;
 
                     filePathState_tv.setText( getFilePathState() );
+                }else if ( fileType == FileType.apk ){
+                    //安装 apk
+                    FileUtil.installApp( MainActivity.this , new File( file.getPath() ) );
+                }else if ( fileType == FileType.image ){
+                    Intent image_intent =  new Intent( MainActivity.this , ImageBrowseActivity.class) ;
+                    image_intent.putExtra( ImageBrowseActivity.FILE_PATH_KEY , file.getPath() ) ;
+                    startActivity( image_intent );
                 }
             }
         });

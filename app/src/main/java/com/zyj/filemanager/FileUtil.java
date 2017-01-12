@@ -1,5 +1,9 @@
 package com.zyj.filemanager;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+
 import com.zyj.filemanager.bean.FileType;
 
 import java.io.File;
@@ -93,6 +97,17 @@ public class FileUtil {
         }
 
         return size + " B" ;
+    }
+
+    /**
+     * 安装apk
+     * @param context
+     * @param file
+     */
+    public static void installApp(Context context , File file ){
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.fromFile( file ), "application/vnd.android.package-archive");
+        context.startActivity(intent);
     }
 
 }
