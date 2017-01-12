@@ -12,7 +12,10 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.zyj.filemanager.adapter.FileHolder;
 import com.zyj.filemanager.adapter.MyAdapter;
+import com.zyj.filemanager.adapter.RecyclerViewAdapter;
 import com.zyj.filemanager.bean.FileBean;
 import com.zyj.filemanager.bean.FilePath;
 import com.zyj.filemanager.bean.FileType;
@@ -53,32 +56,44 @@ public class MainActivity extends AppCompatActivity {
 
         empty_rel = (LinearLayout) findViewById( R.id.empty_rel );
 
-        myAdapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
+        myAdapter.setOnItemClickListener(new RecyclerViewAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
-                FileBean file = beanList.get(position);
-                FileType fileType = file.getFileType() ;
-                if ( fileType == FileType.directory) {
-                    getFile(file.getPath());
+            public void onItemClick(View view, RecyclerView.ViewHolder viewHolder, int position) {
+                if ( viewHolder instanceof FileHolder ){
+                    FileBean file = beanList.get(position);
+                    FileType fileType = file.getFileType() ;
+                    if ( fileType == FileType.directory) {
+                        getFile(file.getPath());
 
-                    FilePath filePath = new FilePath() ;
-                    filePath.setNameState(  file.getName() + " > "  );
-                    filePath.setPath( file.getPath() );
-                    filePathStateList.add( filePath ) ;
+                        FilePath filePath = new FilePath() ;
+                        filePath.setNameState(  file.getName() + " > "  );
+                        filePath.setPath( file.getPath() );
+                        filePathStateList.add( filePath ) ;
 
-                    filePathState_tv.setText( getFilePathState() );
-                }else if ( fileType == FileType.apk ){
-                    //安装 apk
-                    FileUtil.installApp( MainActivity.this , new File( file.getPath() ) );
-                }else if ( fileType == FileType.image ){
-                    Intent image_intent =  new Intent( MainActivity.this , ImageBrowseActivity.class) ;
-                    image_intent.putExtra( ImageBrowseActivity.FILE_PATH_KEY , file.getPath() ) ;
-                    startActivity( image_intent );
-                }else if ( fileType == FileType.txt ){
-                    FileUtil.openWordFileIntent( MainActivity.this , file.getPath() );
-                }else {
-                    FileUtil.openWordFileIntent( MainActivity.this , file.getPath() );
+                        filePathState_tv.setText( getFilePathState() );
+                    }else if ( fileType == FileType.apk ){
+                        //安装 apk
+                        FileUtil.installApp( MainActivity.this , new File( file.getPath() ) );
+                    }else if ( fileType == FileType.image ){
+                        Intent image_intent =  new Intent( MainActivity.this , ImageBrowseActivity.class) ;
+                        image_intent.putExtra( ImageBrowseActivity.FILE_PATH_KEY , file.getPath() ) ;
+                        startActivity( image_intent );
+                    }else if ( fileType == FileType.txt ){
+                        FileUtil.openWordFileIntent( MainActivity.this , file.getPath() );
+                    }else {
+                        FileUtil.openWordFileIntent( MainActivity.this , file.getPath() );
+                    }
                 }
+            }
+        });
+
+        myAdapter.setOnItemLongClickListener(new RecyclerViewAdapter.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(View view, RecyclerView.ViewHolder viewHolder, int position) {
+                if ( viewHolder instanceof  FileHolder ){
+
+                }
+                return false;
             }
         });
 
