@@ -4,12 +4,12 @@ Android 文件管理器
 
 
 效果图：
-![](/png/1f.png)
 
 
 
 ## 参考资料
 - [AndPermission](https://github.com/yanzhenjie/AndPermission)
+- [Android通过文件类型打开系统已有支持程序开启](http://www.jianshu.com/p/b075ef5a9ff9)
 
 
 ## 更新日志

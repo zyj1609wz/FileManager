@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
         fileAdapter = new FileAdapter(this, beanList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this));
         recyclerView.setAdapter(fileAdapter);
 
         empty_rel = (LinearLayout) findViewById( R.id.empty_rel );
@@ -69,16 +68,18 @@ public class MainActivity extends AppCompatActivity {
 
                         refreshTitleState( file.getName() , file.getPath() );
                     }else if ( fileType == FileType.apk ){
-                        //安装 apk
-                        FileUtil.installApp( MainActivity.this , new File( file.getPath() ) );
+                        //安装app
+                        FileUtil.openAppIntent( MainActivity.this , new File( file.getPath() ) );
                     }else if ( fileType == FileType.image ){
-                        Intent image_intent =  new Intent( MainActivity.this , ImageBrowseActivity.class) ;
-                        image_intent.putExtra( ImageBrowseActivity.FILE_PATH_KEY , file.getPath() ) ;
-                        startActivity( image_intent );
+                        FileUtil.openImageIntent( MainActivity.this , new File( file.getPath() ));
                     }else if ( fileType == FileType.txt ){
-                        FileUtil.openWordFileIntent( MainActivity.this , file.getPath() );
+                        FileUtil.openTextIntent( MainActivity.this , new File( file.getPath() ) );
+                    }else if ( fileType == FileType.music ){
+                        FileUtil.openMusicIntent( MainActivity.this ,  new File( file.getPath() ) );
+                    }else if ( fileType == FileType.video ){
+                        FileUtil.openVideoIntent( MainActivity.this ,  new File( file.getPath() ) );
                     }else {
-                        FileUtil.openWordFileIntent( MainActivity.this , file.getPath() );
+                        FileUtil.openApplicationIntent( MainActivity.this , new File( file.getPath() ) );
                     }
                 }
             }
