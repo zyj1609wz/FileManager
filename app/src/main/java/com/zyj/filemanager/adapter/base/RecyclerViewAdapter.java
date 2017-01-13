@@ -1,6 +1,8 @@
-package com.zyj.filemanager.adapter;
+package com.zyj.filemanager.adapter.base;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.zyj.filemanager.adapter.FileAdapter;
 
 /**
  * Created by ${zhaoyanjun} on 2017/1/12.
@@ -17,14 +19,14 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         boolean onItemLongClick(View view , RecyclerView.ViewHolder viewHolder , int position);
     }
 
-    public MyAdapter.OnItemClickListener onItemClickListener;
-    public MyAdapter.OnItemLongClickListener onItemLongClickListener;
+    public FileAdapter.OnItemClickListener onItemClickListener;
+    public FileAdapter.OnItemLongClickListener onItemLongClickListener;
 
-    public void setOnItemClickListener(MyAdapter.OnItemClickListener listener) {
+    public void setOnItemClickListener(FileAdapter.OnItemClickListener listener) {
         onItemClickListener = listener;
     }
 
-    public void setOnItemLongClickListener( MyAdapter.OnItemLongClickListener listener) {
+    public void setOnItemLongClickListener( FileAdapter.OnItemLongClickListener listener) {
         onItemLongClickListener = listener;
     }
 
@@ -54,10 +56,10 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         onBindViewHolders( holder , position );
     }
 
-    abstract void onBindViewHolders( RecyclerView.ViewHolder holder, int position ) ;
+    public abstract void onBindViewHolders( RecyclerView.ViewHolder holder, int position ) ;
 
-    abstract public Object getAdapterData() ;
+    public abstract Object getAdapterData() ;
 
-    abstract public Object getItem( int positon );
+    public abstract Object getItem( int positon );
 
 }

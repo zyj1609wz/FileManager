@@ -4,7 +4,7 @@ package com.zyj.filemanager.bean;
  * Created by ${zhaoyanjun} on 2017/1/11.
  */
 
-public class FilePath {
+public class TitlePath {
 
     private String nameState ;
     private String path ;

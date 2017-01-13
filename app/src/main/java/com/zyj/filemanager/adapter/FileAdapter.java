@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.zyj.filemanager.R;
+import com.zyj.filemanager.adapter.base.RecyclerViewAdapter;
 import com.zyj.filemanager.bean.FileBean;
 import java.util.List;
 
@@ -13,13 +14,13 @@ import java.util.List;
  * Created by ${zhaoyanjun} on 2017/1/11.
  */
 
-public class MyAdapter extends  RecyclerViewAdapter {
+public class FileAdapter extends RecyclerViewAdapter {
 
     private Context context;
     private List<FileBean> list ;
     private LayoutInflater mLayoutInflater ;
 
-    public MyAdapter(Context context, List<FileBean> list) {
+    public FileAdapter(Context context, List<FileBean> list) {
         this.context = context;
         this.list = list;
         mLayoutInflater = LayoutInflater.from( context ) ;

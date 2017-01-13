@@ -1,7 +1,9 @@
 package com.zyj.filemanager.adapter;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.zyj.filemanager.adapter.base.RecyclerViewAdapter;
+import com.zyj.filemanager.adapter.base.RecyclerViewHolder;
 
 /**
  * Created by ${zhaoyanjun} on 2017/1/12.
@@ -14,7 +16,7 @@ public class LineHolder extends RecyclerViewHolder<LineHolder> {
     }
 
     @Override
-    void onBindViewHolder(LineHolder lineHolder, RecyclerViewAdapter adapter, int position) {
+    public void onBindViewHolder(LineHolder lineHolder, RecyclerViewAdapter adapter, int position) {
 
     }
 }

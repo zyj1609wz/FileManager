@@ -5,6 +5,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.zyj.filemanager.FileUtil;
 import com.zyj.filemanager.R;
+import com.zyj.filemanager.adapter.base.RecyclerViewAdapter;
+import com.zyj.filemanager.adapter.base.RecyclerViewHolder;
 import com.zyj.filemanager.bean.FileBean;
 import com.zyj.filemanager.bean.FileType;
 
@@ -32,7 +34,7 @@ public class FileHolder extends RecyclerViewHolder<FileHolder> {
     }
 
     @Override
-    void onBindViewHolder(final FileHolder fileHolder, RecyclerViewAdapter adapter, int position) {
+    public void onBindViewHolder(final FileHolder fileHolder, RecyclerViewAdapter adapter, int position) {
         FileBean fileBean = (FileBean) adapter.getItem(position);
         fileHolder.fileName.setText(fileBean.getName());
 
