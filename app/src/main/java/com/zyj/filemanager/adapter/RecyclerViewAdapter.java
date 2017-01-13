@@ -7,6 +7,8 @@ import android.view.View;
  */
 
 public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+
     public interface OnItemClickListener {
         void onItemClick(View view, RecyclerView.ViewHolder viewHolder , int position);
     }

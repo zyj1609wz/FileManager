@@ -1,18 +1,23 @@
 package com.zyj.filemanager;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.PermissionListener;
 import com.zyj.filemanager.adapter.FileHolder;
 import com.zyj.filemanager.adapter.MyAdapter;
 import com.zyj.filemanager.adapter.RecyclerViewAdapter;
@@ -35,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private StringBuilder stringBuilder = new StringBuilder("");
     private File rootFile ;
     private LinearLayout empty_rel ;
+    private int PERMISSION_CODE_WRITE_EXTERNAL_STORAGE = 100 ;
+    private String rootPath ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
         filePathState_tv.setHorizontallyScrolling( true );
         filePathState_tv.setMovementMethod(new ScrollingMovementMethod());
 
-        String rootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        rootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
@@ -102,13 +110,23 @@ public class MainActivity extends AppCompatActivity {
         filePath.setPath( rootPath );
         filePathStateList.add( filePath ) ;
 
-        getFile(rootPath);
-
+        // 先判断是否有权限。
+        if(AndPermission.hasPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE )) {
+            // 有权限，直接do anything.
+            getFile(rootPath);
+        } else {
+            //申请权限。
+            AndPermission.with(this)
+                    .requestCode(PERMISSION_CODE_WRITE_EXTERNAL_STORAGE)
+                    .permission(Manifest.permission.WRITE_EXTERNAL_STORAGE )
+                    .send();
+        }
     }
 
     public void getFile(String path ) {
-        rootFile = new File(path + "/" )  ;
-        new MyTask(rootFile).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "");
+        rootFile = new File( path + File.separator  )  ;
+        Log.e( "zhao", "getFile: "+ rootFile.isDirectory() + "  name: " + rootFile.getName() + "  path: " + rootFile.getPath() ) ;
+        new MyTask(rootFile).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "") ;
     }
 
     class MyTask extends AsyncTask {
@@ -121,25 +139,30 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Object doInBackground(Object[] params) {
             List<FileBean> fileBeenList = new ArrayList<>();
-            File[] files = file.listFiles();
-            for (File f : files) {
-                if (f.isHidden()) continue;
+            if ( file.isDirectory() ) {
+                File[] files = file.listFiles();
+                if ( files != null ){
+                    for (File f : files) {
+                        if (f.isHidden()) continue;
 
-                FileBean fileBean = new FileBean();
-                fileBean.setName(f.getName());
-                fileBean.setPath(f.getAbsolutePath());
-                fileBean.setFileType( FileUtil.getFileType( f ));
-                fileBean.setChildCount( FileUtil.getFileChildCount( f ));
-                fileBean.setSize( f.length() );
-                fileBean.setHolderType( 0 );
+                        FileBean fileBean = new FileBean();
+                        fileBean.setName(f.getName());
+                        fileBean.setPath(f.getAbsolutePath());
+                        fileBean.setFileType( FileUtil.getFileType( f ));
+                        fileBean.setChildCount( FileUtil.getFileChildCount( f ));
+                        fileBean.setSize( f.length() );
+                        fileBean.setHolderType( 0 );
 
-                fileBeenList.add(fileBean);
+                        fileBeenList.add(fileBean);
 
-                FileBean lineBean = new FileBean();
-                lineBean.setHolderType( 1 );
-                fileBeenList.add( lineBean );
+                        FileBean lineBean = new FileBean();
+                        lineBean.setHolderType( 1 );
+                        fileBeenList.add( lineBean );
 
+                    }
+                }
             }
+
             beanList = fileBeenList;
             return fileBeenList;
         }
@@ -179,4 +202,30 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        // 只需要调用这一句，其它的交给AndPermission吧，最后一个参数是PermissionListener。
+        AndPermission.onRequestPermissionsResult(requestCode, permissions, grantResults, listener);
+    }
+
+    private PermissionListener listener = new PermissionListener() {
+        @Override
+        public void onSucceed(int requestCode, List<String> grantedPermissions) {
+            // 权限申请成功回调。
+            if(requestCode == PERMISSION_CODE_WRITE_EXTERNAL_STORAGE ) {
+                getFile(rootPath);
+            }
+        }
+
+        @Override
+        public void onFailed(int requestCode, List<String> deniedPermissions) {
+            // 权限申请失败回调。
+            AndPermission.defaultSettingDialog( MainActivity.this, PERMISSION_CODE_WRITE_EXTERNAL_STORAGE )
+                    .setTitle("权限申请失败")
+                    .setMessage("我们需要的一些权限被您拒绝或者系统发生错误申请失败，请您到设置页面手动授权，否则功能无法正常使用！")
+                    .setPositiveButton("好，去设置")
+                    .show();
+        }
+    };
 }
