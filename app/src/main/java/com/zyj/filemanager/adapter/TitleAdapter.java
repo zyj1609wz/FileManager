@@ -64,4 +64,11 @@ public class TitleAdapter extends RecyclerViewAdapter {
         list.remove( positon ) ;
         notifyItemRemoved( positon );
     }
+
+    public void removeLast(){
+        if ( list == null ) return ;
+        int lastPosition = getItemCount() - 1 ;
+        list.remove( lastPosition ) ;
+        notifyItemRemoved( lastPosition  );
+    }
 }

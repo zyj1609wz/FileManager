@@ -5,7 +5,9 @@
     android:layout_height="wrap_content"
     android:paddingBottom="8dp"
     android:paddingTop="8dp"
-    android:background="#ffffff"
+    android:paddingLeft="2dp"
+    android:paddingRight="2dp"
+    android:background="@drawable/item_selector"
     >
 
     <TextView
@@ -14,7 +16,7 @@
         android:layout_height="wrap_content"
         android:textColor="#666666"
         android:gravity="center"
-        android:textSize="14sp"
+        android:textSize="16sp"
         />
 
 </RelativeLayout>

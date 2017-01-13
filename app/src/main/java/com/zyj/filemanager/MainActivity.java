@@ -89,9 +89,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(View view, RecyclerView.ViewHolder viewHolder, int position) {
                 if ( viewHolder instanceof  FileHolder ){
-
+                    FileBean fileBean = (FileBean) fileAdapter.getItem( position );
+                    FileType fileType = fileBean.getFileType() ;
+                    if ( fileType != null && fileType != FileType.directory ){
+                        FileUtil.sendFile( MainActivity.this , new File( fileBean.getPath() ) );
+                    }
                 }
                 return false;
+            }
+        });
+
+        titleAdapter.setOnItemClickListener(new RecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, RecyclerView.ViewHolder viewHolder, int position) {
+                TitlePath titlePath = (TitlePath) titleAdapter.getItem( position );
+                getFile( titlePath.getPath() );
+
+                int count = titleAdapter.getItemCount() ;
+                int removeCount = count - position - 1 ;
+                for ( int i = 0 ; i < removeCount ; i++ ){
+                    titleAdapter.removeLast();
+                }
             }
         });
 
