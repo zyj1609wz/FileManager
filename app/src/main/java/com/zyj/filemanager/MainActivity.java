@@ -24,6 +24,8 @@ import com.zyj.filemanager.bean.FileType;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -146,9 +148,13 @@ public class MainActivity extends AppCompatActivity {
         protected Object doInBackground(Object[] params) {
             List<FileBean> fileBeenList = new ArrayList<>();
             if ( file.isDirectory() ) {
-                File[] files = file.listFiles();
-                if ( files != null ){
-                    for (File f : files) {
+                File[] filesArray = file.listFiles();
+                if ( filesArray != null ){
+                    List<File> fileList = new ArrayList<>() ;
+                    Collections.addAll( fileList , filesArray ) ;  //把数组转化成list
+                    Collections.sort( fileList , FileUtil.comparator );  //按照名字排序
+
+                    for (File f : fileList ) {
                         if (f.isHidden()) continue;
 
                         FileBean fileBean = new FileBean();
