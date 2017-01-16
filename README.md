@@ -20,18 +20,18 @@
 - [AndPermission](https://github.com/yanzhenjie/AndPermission)
 - [Android通过文件类型打开系统已有支持程序开启](http://www.jianshu.com/p/b075ef5a9ff9)
 
+---
+
+个人微信号：`zhaoyanjun125 `  ，   欢迎关注
+
+![](http://o7rvuansr.bkt.clouddn.com/weixin200.jpg)
+
 
 ## 更新日志
 
 `2017/1/16`
 
 - 添加效果图
-
----
-
-个人微信号：`zhaoyanjun125 `  ，   欢迎关注
-
-![](http://o7rvuansr.bkt.clouddn.com/weixin200.jpg)
 
 
 `2017/1/13`
