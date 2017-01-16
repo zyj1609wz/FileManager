@@ -4,7 +4,10 @@ Android 文件管理器
 
 
 效果图：
+![](/png/1.jpg)  ![](/png/2.jpg)
+![](/png/3.jpg)  ![](/png/4.jpg)
 
+![](/png/5.jpg) ![](/png/6.jpg)
 
 
 ## 参考资料
