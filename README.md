@@ -1,13 +1,11 @@
 # FileManager
 Android 文件管理器
 
-
-
 效果图：
+
 ![](/png/1.png)  ![](/png/2.png)
 ![](/png/3.png)  ![](/png/4.png)
-
-![](/png/5.png) ![](/png/6.png)
+![](/png/5.png)  ![](/png/6.png)
 
 
 ## 参考资料
