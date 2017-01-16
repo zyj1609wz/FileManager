@@ -8,8 +8,11 @@
 
 3、长按发送文件
 
+#### APK 下载
+[APK 下载](/apk/FileManager.apk)
 
-效果图：
+
+#### 效果图：
 
 ![](/png/1.png)  ![](/png/2.png)
 ![](/png/3.png)  ![](/png/4.png)
