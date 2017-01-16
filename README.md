@@ -27,6 +27,12 @@
 
 - 添加效果图
 
+---
+
+个人微信号：`zhaoyanjun125 `  ，   欢迎关注
+
+![](http://o7rvuansr.bkt.clouddn.com/weixin200.jpg)
+
 
 `2017/1/13`
 
