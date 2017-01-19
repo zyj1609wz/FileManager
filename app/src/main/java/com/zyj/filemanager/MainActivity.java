@@ -1,7 +1,6 @@
 package com.zyj.filemanager;
 
 import android.Manifest;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -24,7 +23,6 @@ import com.zyj.filemanager.bean.FileType;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
