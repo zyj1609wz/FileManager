@@ -202,6 +202,6 @@ public class FileUtil {
         share.putExtra(Intent.EXTRA_STREAM,
                 Uri.fromFile(file));
         share.setType("*/*");//此处可发送多种文件
-        context.startActivity(Intent.createChooser(share, "Share"));
+        context.startActivity(Intent.createChooser(share, "发送"));
     }
 }
