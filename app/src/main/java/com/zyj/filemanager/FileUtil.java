@@ -24,31 +24,31 @@ public class FileUtil {
         }
         String fileName = file.getName().toLowerCase() ;
 
-        if ( fileName.contains(".mp3")) {
+        if ( fileName.endsWith(".mp3")) {
             return FileType.music ;
         }
 
-        if ( fileName.contains(".mp4") || fileName.contains( ".avi")
-                || fileName.contains( ".3gp") || fileName.contains( ".mov")
-                || fileName.contains( ".rmvb") || fileName.contains( ".mkv")
-                || fileName.contains( ".flv") || fileName.contains( ".rm")) {
+        if ( fileName.endsWith(".mp4") || fileName.endsWith( ".avi")
+                || fileName.endsWith( ".3gp") || fileName.endsWith( ".mov")
+                || fileName.endsWith( ".rmvb") || fileName.endsWith( ".mkv")
+                || fileName.endsWith( ".flv") || fileName.endsWith( ".rm")) {
             return FileType.video ;
         }
 
-        if ( fileName.contains(".txt") || fileName.contains(".log") || fileName.contains(".xml")) {
+        if ( fileName.endsWith(".txt") || fileName.endsWith(".log") || fileName.endsWith(".xml")) {
             return FileType.txt ;
         }
 
-        if ( fileName.contains(".zip") || fileName.contains( ".rar")) {
+        if ( fileName.endsWith(".zip") || fileName.endsWith( ".rar")) {
             return FileType.zip ;
         }
 
-        if ( fileName.contains(".png") || fileName.contains( ".gif")
-                || fileName.contains( ".jpeg") || fileName.contains( ".jpg")   ) {
+        if ( fileName.endsWith(".png") || fileName.endsWith( ".gif")
+                || fileName.endsWith( ".jpeg") || fileName.endsWith( ".jpg")   ) {
             return FileType.image ;
         }
 
-        if ( fileName.contains(".apk") ) {
+        if ( fileName.endsWith(".apk") ) {
             return FileType.apk ;
         }
 

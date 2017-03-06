@@ -1,5 +1,4 @@
 package com.zyj.filemanager;
-
 import android.Manifest;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,7 +19,6 @@ import com.zyj.filemanager.adapter.base.RecyclerViewAdapter;
 import com.zyj.filemanager.bean.FileBean;
 import com.zyj.filemanager.bean.TitlePath;
 import com.zyj.filemanager.bean.FileType;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
